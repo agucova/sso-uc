@@ -19,16 +19,17 @@ The library exposes two main functions:
 
 The library is typed and the [code](https://github.com/agucova/sso-uc/blob/main/uc_sso_helper/main.py) is relatively short and documented.
 
-### Portal UC
+### Seguimiento Curricular
 
-A minimal example to place an authenticated GET request to UC Chile's main portal.
+A minimal example to place an authenticated GET request to UC Chile's "Seguimiento Curricular" service:
+
 
 ```python
 import requests
 
 from uc_sso import get_ticket
 
-ticket = get_ticket("example_username", "example_password", "https://portal.uc.cl/")
+ticket = get_ticket("example_username", "example_password", "https://seguimientocurricular.uc.cl/")
 requests.get(ticket.service_url).text
 ```
 
