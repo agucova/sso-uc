@@ -5,7 +5,7 @@ from typing import NamedTuple, Optional
 
 from requests import get, post
 
-from .parsers import SSOHandshakeParser, SSOUserInfoParser
+from uc_sso.parsers import SSOHandshakeParser, SSOUserInfoParser
 
 SSO_ENDPOINT = "https://sso.uc.cl/cas/login"
 
