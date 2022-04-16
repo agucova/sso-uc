@@ -1,6 +1,6 @@
 # UC SSO Helper 🔐
 
-A python library for easily authenticating to services protected by UC Chile's SSO system.
+A python library for easily authenticating to services protected by UC Chile's SSO system. Note this is meant for accessing services locally (i.e. not on a web app or user-facing system).
 
 ## Installation
 
