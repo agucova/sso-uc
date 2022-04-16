@@ -20,6 +20,7 @@ class InitialHandshakeData(NamedTuple):
     ssosaf: str
     execution: str
 
+
 class ServiceTicket(NamedTuple):
     ticket: str
     service_url: str
@@ -132,10 +133,13 @@ def get_initial_handshake(endpoint: str = SSO_ENDPOINT) -> InitialHandshakeData:
 def get_user_info(
     username: str,
     password: str,
-    handshake_data: InitialHandshakeData,
+    handshake_data: Optional[InitialHandshakeData] = None,
     sso_endpoint: str = SSO_ENDPOINT,
 ):
     "Tries to login to the SSO using the given credentials and returns the user info based on the default response."
+    if handshake_data is None:
+        handshake_data = get_initial_handshake(sso_endpoint)
+    
     response = post(
         sso_endpoint,
         {
@@ -184,18 +188,19 @@ def get_ticket(
             "execution": handshake_data.execution,
         },
         cookies={"ssosaf": handshake_data.ssosaf},
-        allow_redirects=False
+        allow_redirects=False,
     )
     if not login_response.is_redirect:
-        raise ValueError(f"Could get ticket from SSO. Status code: {login_response.status_code}")
-    
+        raise ValueError(
+            f"Could get ticket from SSO. Status code: {login_response.status_code}"
+        )
+
     # Get the ticket from the login response
     ticketed_service_url = login_response.headers.get("Location")
     assert ticketed_service_url is not None, "Could not get ticketed service url."
 
     ticket = ticketed_service_url.split("ticket=")[1]
     return ServiceTicket(ticket, ticketed_service_url)
-
 
 
 if __name__ == "__main__":
