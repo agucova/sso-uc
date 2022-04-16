@@ -1,4 +1,4 @@
-# UC SSO Helper
+# UC SSO Helper 🔐
 
 A python library for easily authenticating to services protected by UC Chile's SSO system.
 
@@ -28,6 +28,5 @@ import requests
 from uc_sso_helper import get_ticket
 
 ticket = get_ticket("example_username", "example_password", "https://portal.uc.cl/")
-
 requests.get(ticket.service_url).text
 ```
