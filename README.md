@@ -48,8 +48,8 @@ print(get_user_info("example_username", "example_password"))
  "email_type": "gmail",
  "username": "XXXXXXX"
  "run": "XXXXXXX-0",
- "alternate_emails": ["XXXXXX@puc.cl"]
+ "alternate_emails": ["XXXXXX@puc.cl"],
  "user_category": "Alumno",
- "user_type": "1",
+ "user_type": "1"
 }
 ```
