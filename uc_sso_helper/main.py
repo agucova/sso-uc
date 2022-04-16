@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from ctypes import Union
 from html.parser import HTMLParser
 from pprint import pprint
 from typing import Any, Literal, NamedTuple, Optional
@@ -17,16 +16,22 @@ class LoginFailed(Exception):
 
 
 class InitialHandshakeData(NamedTuple):
+    """Stores the data needed to POST login data to the SSO."""
+
     ssosaf: str
     execution: str
 
 
 class ServiceTicket(NamedTuple):
-    ticket: str
+    """Stores the ticket and authenticated URL to a service."""
+
+    value: str
     service_url: str
 
 
 class SSOHandshakeParser(HTMLParser):
+    """Parses the login form from the SSO to get the data needed for the initial handshake."""
+
     def __init__(self):
         super().__init__()
         self.execution: Optional[str] = None
@@ -41,6 +46,7 @@ class SSOHandshakeParser(HTMLParser):
 
 
 class SSOUserInfoParser(HTMLTableParser):
+    """Gets a list of user attributes from the table in the default SSO login page."""
     def __init__(self):
         super().__init__()
         self.login_status: Literal["success", "failure"] = "failure"
@@ -136,10 +142,10 @@ def get_user_info(
     handshake_data: Optional[InitialHandshakeData] = None,
     sso_endpoint: str = SSO_ENDPOINT,
 ):
-    "Tries to login to the SSO using the given credentials and returns the user info based on the default response."
+    "Tries to login to the SSO using the given credentials and returns a dictionary of user attributes based on the default response."
     if handshake_data is None:
         handshake_data = get_initial_handshake(sso_endpoint)
-    
+
     response = post(
         sso_endpoint,
         {
@@ -165,7 +171,7 @@ def get_user_info(
 def get_ticket(
     username: str, password: str, service_url: str, sso_endpoint: str = SSO_ENDPOINT
 ) -> ServiceTicket:
-    """Gets a ticket to access a given service."""
+    """Gets a ticket and an authenticated url to access a given service."""
     initial_service_response = get(service_url, allow_redirects=False)
     if initial_service_response.status_code not in (200, 302):
         raise ValueError(
