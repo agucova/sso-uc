@@ -1,6 +1,6 @@
 # UC SSO Helper 🔐
 
-A python library for easily authenticating to services protected by UC Chile"s SSO system.
+A python library for easily authenticating to services protected by UC Chile's SSO system.
 
 ## Installation
 
@@ -21,7 +21,7 @@ The library is typed and the [code](https://github.com/agucova/sso-uc/blob/main/
 
 ### Portal UC
 
-A minimal example to place an authenticated GET request to UC Chile"s main portal.
+A minimal example to place an authenticated GET request to UC Chile's main portal.
 
 ```python
 import requests
