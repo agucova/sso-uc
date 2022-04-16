@@ -1,8 +1,9 @@
 [tool.poetry]
-name = "sso-uc"
-version = "0.1.0"
-description = ""
+name = "sso-uc-helper"
+version = "0.1.2"
+description = "A helper for interacting locally with services that are protected by UC Chile's SSO."
 authors = ["Agustín Covarrubias <agucova@uc.cl>"]
+license = " AGPL-3.0-or-late"
 
 [tool.poetry.dependencies]
 python = "^3.9"

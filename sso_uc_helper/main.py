@@ -161,7 +161,7 @@ def get_user_info(
 def get_ticket(
     username: str, password: str, service_url: str, sso_endpoint: str = SSO_ENDPOINT
 ) -> ServiceTicket:
-    """Tries to get the ticket for a SSO service."""
+    """Gets a ticket to access a given service."""
     initial_service_response = get(service_url, allow_redirects=False)
     if initial_service_response.status_code not in (200, 302):
         raise ValueError(
