@@ -5,7 +5,9 @@ from html_table_parser.parser import HTMLTableParser
 
 
 class SSOHandshakeParser(HTMLParser):
-    """Parses the login form from the SSO to get the data needed for the initial handshake."""
+    """
+    Parses the login form from the SSO to get one of the keys needed for the initial handshake (`execution`).
+    """
 
     def __init__(self):
         super().__init__()
@@ -21,7 +23,9 @@ class SSOHandshakeParser(HTMLParser):
 
 
 class SSOUserInfoParser(HTMLTableParser):
-    """Gets a list of user attributes from the table in the default SSO login page."""
+    """
+    Gets a list of user attributes from the table in the default diagnostics page of the SSO system.
+    """
 
     def __init__(self):
         super().__init__()
@@ -63,6 +67,8 @@ class SSOUserInfoParser(HTMLTableParser):
                     self.attributes["surnames"] = value_seq[0]
                 elif attr_name == "uid":
                     self.attributes["username"] = value_seq[0]
+                elif attr_name == "mail":
+                    self.attributes["email"] = value_seq[0]
                 elif attr_name == "mailAlternateAddress":
                     self.attributes["alternate_emails"] = value_seq
                 elif attr_name == "businessCategory":
