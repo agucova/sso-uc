@@ -1,5 +1,4 @@
 from __future__ import annotations
-from multiprocessing.connection import Connection
 
 from pprint import pprint
 from typing import NamedTuple, Optional
