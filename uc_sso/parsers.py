@@ -30,7 +30,7 @@ class SSOUserInfoParser(HTMLTableParser):
 
     def handle_starttag(self, tag, attrs):
         super().handle_starttag(tag, attrs)
-        # Check for the "alert-sucess" class on a div
+        # Check for the "alert-success" class on a div
         if tag == "div":
             for name, value in attrs:
                 if name == "class" and value == "alert alert-success":

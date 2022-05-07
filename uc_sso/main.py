@@ -1,4 +1,5 @@
 from __future__ import annotations
+from multiprocessing.connection import Connection
 
 from pprint import pprint
 from typing import NamedTuple, Optional
@@ -13,6 +14,9 @@ SSO_ENDPOINT = "https://sso.uc.cl/cas/login"
 class LoginFailed(Exception):
     def __init__(self, message: str):
         self.message = message
+
+class SSOProtocolError(ConnectionError):
+    pass
 
 
 class InitialHandshakeData(NamedTuple):
@@ -68,7 +72,7 @@ def get_user_info(
         cookies={"ssosaf": handshake_data.ssosaf},
     )
     if response.status_code != 200:
-        raise ValueError(f"Could not login to SSO. Status code: {response.status_code}")
+        raise SSOProtocolError(f"SSO didn't respond to information request as expected (HTTP {response.status_code}).")
 
     html = response.text
     parser = SSOUserInfoParser()
@@ -85,11 +89,11 @@ def get_ticket(
     """Gets a ticket and an authenticated url to access a given service."""
     initial_service_response = get(service_url, allow_redirects=False)
     if initial_service_response.status_code not in (200, 302):
-        raise ValueError(
+        raise ConnectionError(
             f"Could not reach service. Status code: {initial_service_response.status_code}"
         )
     if not initial_service_response.is_redirect:
-        raise ValueError("Service doesn't seem to be SSO protected.")
+        raise SSOProtocolError("Service doesn't seem to be SSO protected.")
 
     sso_redirect_url = initial_service_response.headers.get("Location")
     assert sso_redirect_url, "Could not find SSO redirect URL."
@@ -108,8 +112,8 @@ def get_ticket(
         allow_redirects=False,
     )
     if not login_response.is_redirect:
-        raise ValueError(
-            f"Could not get ticket from SSO. Status code: {login_response.status_code}"
+        raise SSOProtocolError(
+            f"The second-step handshake didn't present a redirect (HTTP {login_response.status_code})."
         )
 
     # Get the ticket from the login response
