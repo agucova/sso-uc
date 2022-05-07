@@ -109,7 +109,7 @@ def get_ticket(
     )
     if not login_response.is_redirect:
         raise ValueError(
-            f"Could get ticket from SSO. Status code: {login_response.status_code}"
+            f"Could not get ticket from SSO. Status code: {login_response.status_code}"
         )
 
     # Get the ticket from the login response
