@@ -1,7 +1,7 @@
 # UC SSO Helper 🔐
 
 A python library for easily authenticating to services protected by UC Chile's SSO system.
-```
+
 Note this is meant for accessing services locally (i.e. not on a web app or on a user-facing system). This is commonly used for automating software that runs local-first, and you should **almost never** use this library by capturing user credentials and storing them in your system.
 
 For web apps you can either request to be placed on the CAS allowlist (which requires DI authorization) or in the case you need simple email or name metadata, use Google OAuth and check for a valid university domain.
