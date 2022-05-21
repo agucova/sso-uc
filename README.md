@@ -22,7 +22,7 @@ The library exposes two main functions:
 - `get_ticket(username, password, service_url)`: To get a service ticket and an authenticated service URL given a username and password.
 - `get_user_info(username, password)`: To get SSO stored user attributes.
 
-The library is heavily typed and the [code](https://github.com/agucova/sso-uc/blob/main/uc_sso_helper/main.py) is relatively short and heavily documented, so go look!
+The library is heavily typed and the [code](https://github.com/agucova/sso-uc/blob/main/uc_sso/main.py) is relatively short and heavily documented, so go look!
 
 ### Seguimiento Curricular
 
