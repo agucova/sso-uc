@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "uc-sso"
-version = "1.0.2"
+version = "1.0.3"
 description = "A helper for interacting locally with services that are protected by UC Chile's SSO."
 authors = ["Agustín Covarrubias <agucova@uc.cl>"]
 license = " AGPL-3.0-or-late"
