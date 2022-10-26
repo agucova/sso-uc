@@ -37,12 +37,14 @@ class SSOUserInfoParser(HTMLTableParser):
         # Check for the "alert-success" class on a div
         if tag == "div":
             for name, value in attrs:
-                if name == "class" and value == "alert alert-success":
+                if name == "class" and "alert-success" in value:
                     self.login_status = "success"
                     break
 
     def feed(self, data):
         super().feed(data)
+        print(self.tables)
+        print(self.login_status)
         if self.login_status == "success":
             assert self.tables[0], "Login successfull, but attribute table not found."
             self.attributes = {}
